@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void play(final View view) {
-        if(currentGameState == GameState.RUNNING) {
+        if(currentGameState == GameState.RUNNING && isBlankSpace(view)) {
             dropPiece(view);
             currentGameState = checkGameState();
             if(currentGameState == GameState.RUNNING) {
@@ -78,12 +78,18 @@ public class MainActivity extends AppCompatActivity {
         titleMessage.setText(String.format("%s plays now...", currentPlayer));
     }
 
+    private boolean isBlankSpace(final View view) {
+        ImageView imageView = (ImageView) view;
+        Integer tagValue = Integer.parseInt(imageView.getTag().toString());
+        return boardPlayArray[tagValue] == 0;
+    }
+
     private void dropPiece(final View view) {
         ImageView imageView = (ImageView) view;
+        Integer tagValue = Integer.parseInt(imageView.getTag().toString());
         imageView.setTranslationY(-800f);
         imageView.setImageResource(currentPlayer.getPlayerImage());
         imageView.animate().rotation(100).translationYBy(800f).setDuration(500).start();
-        Integer tagValue = Integer.parseInt(imageView.getTag().toString());
         boardPlayArray[tagValue] = currentPlayer.getIntValue();
         currentPlay++;
     }
