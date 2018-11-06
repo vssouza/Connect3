@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     public void resetGame(View view) {
         GridLayout gridLayout = findViewById(R.id.grid);
         for(int count = 0; count < gridLayout.getChildCount(); count++) {
-            ((ImageView)gridLayout.getChildAt(count)).setImageResource(0);
+            ((ImageView)gridLayout.getChildAt(count)).setImageDrawable(null);
         }
         setupNewGame();
     }
