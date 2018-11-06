@@ -2,9 +2,8 @@ package com.mindrefactory.example.connect3;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayout;
 import android.view.View;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +11,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int[][] sequences = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 4, 8},
             {2, 4, 6}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}};
-    private static final int[] imageIds = {
-            R.id.imageView1, R.id.imageView2, R.id.imageView3,
-            R.id.imageView4, R.id.imageView5, R.id.imageView6,
-            R.id.imageView7, R.id.imageView8, R.id.imageView9
-    };
     private static final int BOARD_SIZE = 9;
     private int[] boardPlayArray;
     private int currentPlay;
@@ -43,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    protected void play(final View view) {
+    public void play(View view) {
         if(currentGameState == GameState.RUNNING && isBlankSpace(view)) {
             dropPiece(view);
             currentGameState = checkGameState();
@@ -94,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
         currentPlay++;
     }
 
-    protected void resetGame(final View view) {
-        for(int count = 0; count < imageIds.length; count++) {
-            ((ImageView)findViewById(imageIds[count])).setImageResource(0);
+    public void resetGame(View view) {
+        GridLayout gridLayout = findViewById(R.id.grid);
+        for(int count = 0; count < gridLayout.getChildCount(); count++) {
+            ((ImageView)gridLayout.getChildAt(count)).setImageResource(0);
         }
         setupNewGame();
     }
